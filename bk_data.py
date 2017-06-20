@@ -67,6 +67,7 @@ if __name__ == "__main__":#settings
     x = 0
     cur = major[x]
     dw = 0
+    oldD = None
 
     date = start_date
     print("Starting...")
@@ -82,7 +83,7 @@ if __name__ == "__main__":#settings
         adj_close = []
         while date <= end_date:
             dw = download(date, cur)
-            if dw is not None:
+            if dw is not None and dw != oldD:
                 print (date)
                 save(dw, date, cur, openo, high, low, close, volume, adj_close)
             date = date + datetime.timedelta(minutes = 1)
@@ -92,5 +93,6 @@ if __name__ == "__main__":#settings
         date = start_date
         print("file saved")
         csv(date, cur, openo, high, low, close, volume, adj_close)
+        oldD = dw
 
     print("Completed")
